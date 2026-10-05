@@ -1,0 +1,21 @@
+{
+  "name": "quota-reactor",
+  "description": "Retro sci-fi reactor console for Claude Code: seven-segment quota and context timers in the side pane",
+  "owner": {
+    "name": "Jank0vic",
+    "url": "https://github.com/jnk0vc"
+  },
+  "plugins": [
+    {
+      "name": "quota-reactor",
+      "source": "./",
+      "description": "A reactor-console side pane: seven-segment quota timers, a three-unit tool-call board, and a warning band, all following this session",
+      "version": "0.1.0",
+      "author": {
+        "name": "Jank0vic",
+        "url": "https://github.com/jnk0vc"
+      },
+      "license": "MIT"
+    }
+  ]
+}

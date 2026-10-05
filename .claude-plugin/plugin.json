@@ -1,0 +1,14 @@
+{
+  "name": "quota-reactor",
+  "version": "0.1.0",
+  "description": "A reactor-console side pane: seven-segment quota timers, a three-unit tool-call board, and a warning band, all following this session",
+  "author": {
+    "name": "Jank0vic",
+    "url": "https://github.com/jnk0vc"
+  },
+  "homepage": "https://github.com/jnk0vc/quota-reactor",
+  "repository": "https://github.com/jnk0vc/quota-reactor",
+  "license": "MIT",
+  "keywords": ["status", "rate-limit", "context-window", "pane", "seven-segment"],
+  "types": "./types/index.d.ts"
+}
