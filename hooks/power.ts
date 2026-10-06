@@ -1,5 +1,5 @@
 import type { ContextGauge, Limit } from '../types'
-import { BLOOD, GHOST, MINCHO, RUST, SCARLET, svgSize } from './palette'
+import { BLOOD, GHOST, MINCHO, RUST, SCARLET, VOID, svgSize } from './palette'
 
 const HOUR = 3_600_000
 const DAY = 24 * HOUR
@@ -520,7 +520,9 @@ export const powerSvg = (
     )
     .join('')
   const size = svgSize(drawWidth, width, height)
-  const source = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${size.width}" height="${size.height}">
+  // 基と基のすき間や外枠のまわりが透けると、枠(iframe)の白い地が見えるので、全面を黒で塗る
+  const source = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${size.width}" height="${size.height}" style="background:${VOID}">
+  <rect width="${width}" height="${height}" fill="${VOID}"/>
   <defs><filter id="glow" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="2.2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>${frameGradients()}</defs>
   ${modules}
 </svg>`

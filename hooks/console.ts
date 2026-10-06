@@ -164,7 +164,7 @@ export const consoleSvg = (
   const size = svgSize(drawWidth, width, height)
   const side =
     layout === 'medium' ? `<g transform="translate(${CORE_W + 16} 0)">${tally(list, width - CORE_W - 24)}</g>` : ''
-  const source = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${size.width}" height="${size.height}">
+  const source = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${size.width}" height="${size.height}" style="background:${VOID}">
   <rect width="${width}" height="${height}" fill="${VOID}"/>
   <g transform="scale(${coreScale})">${core(state, decision)}</g>${side}
   <g transform="translate(${logX} ${logY})">${log(list, origin, logW, rows)}</g>

@@ -103,6 +103,9 @@ test('利用枠が届くと稼働限界を現在のペースで出し、90%超�
     expect(source).toContain('Fable週次')
     expect(source).toContain(viewBox)
     expect(source).toContain('OVERRUN')
+    // 基のすき間から枠(iframe)の白い地が透けないよう、全面を黒で塗っている
+    expect(source).toContain('style="background:#050505"')
+    expect(source).toMatch(/<rect width="\d+" height="\d+" fill="#050505"\/>/)
     expect(power?.props.width).toBe(width)
     expect(power?.props.height).toBe(height)
     expect(source).toContain(`width="${width}" height="${height}"`)
