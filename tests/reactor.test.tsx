@@ -18,7 +18,7 @@ const BAND_PROPS = {
   view: {},
 } as const
 
-test('Bash実行中は警告帯が出て点滅し、終わると消える', async ($, on) => {
+test('Bash実行中は赤い警告帯が出て、終わると消える', async ($, on) => {
   const clock = mock.clock(on, { now: 1000 })
   // 警告がないとき帯はエンジン既定の描画に譲るので、その代役を置く
   on('ui.render', ($, e) => {

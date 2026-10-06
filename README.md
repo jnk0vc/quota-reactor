@@ -25,7 +25,7 @@ A Claude Code plugin that turns the side pane into a retro sci-fi reactor consol
 
 **Warning band (above the prompt)**
 
-- Red and blinking while a Bash command runs, with the command shown.
+- Red while a Bash command runs, with the command shown.
 - Red with a `確認` (dismiss) button after a tool call fails.
 - Red when any rate-limit window passes 90% usage.
 - Amber while Claude is working.

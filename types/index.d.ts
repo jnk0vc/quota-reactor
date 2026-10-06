@@ -22,7 +22,6 @@ declare module 'claude-code' {
       startedAt: number
       alarm: Alarm | null
       bash: string | null
-      blink: boolean
       limits: Limit[]
       context: ContextGauge | null
       anchor: number

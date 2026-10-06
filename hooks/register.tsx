@@ -26,7 +26,6 @@ const log = atom({ plugin: 'quota-reactor', key: 'log' } as const, [])
 const startedAt = atom({ plugin: 'quota-reactor', key: 'startedAt' } as const, 0)
 const alarm = atom({ plugin: 'quota-reactor', key: 'alarm' } as const, null)
 const bash = atom({ plugin: 'quota-reactor', key: 'bash' } as const, null)
-const blink = atom({ plugin: 'quota-reactor', key: 'blink' } as const, false)
 const limits = atom({ plugin: 'quota-reactor', key: 'limits' } as const, [])
 // 利用枠が3つに満たないとき、空いた基に出すコンテキストの使用量
 const context = atom({ plugin: 'quota-reactor', key: 'context' } as const, null)
@@ -57,7 +56,6 @@ const toLimits = (windows: readonly Limit[]): Limit[] =>
 const toContext = ({ tokens, window, percent }: ContextGauge): ContextGauge => ({ tokens, window, percent })
 
 export const register: Register = on => {
-  let blinkTimer: Timer | undefined
   let anchorTimer: Timer | undefined
 
   on('session.start', async ($, e, next) => {
@@ -126,7 +124,6 @@ export const register: Register = on => {
     await update($, log, list => [...list, entry].slice(-60))
     if (isBash) {
       await update($, bash, () => entry.summary || 'Bash')
-      blinkTimer ??= $.clock.every(600, () => void update($, blink, isOn => !isOn))
     }
 
     let verdict: Verdict = 'denied'
@@ -146,10 +143,7 @@ export const register: Register = on => {
         list.map(one => (one.id === entry.id ? { ...one, verdict } : one)),
       )
       if (isBash) {
-        blinkTimer?.cancel()
-        blinkTimer = undefined
         await update($, bash, () => null)
-        await update($, blink, () => false)
       }
     }
   })
@@ -232,7 +226,6 @@ export const register: Register = on => {
     }
     const command = await read($, bash)
     const warning = await read($, alarm)
-    const isOn = await read($, blink)
     const list = await read($, log)
     const nearLimit = critical(await read($, limits))
     if (command === null && warning === null && nearLimit === undefined && !e.props.isWorking) {
@@ -242,15 +235,17 @@ export const register: Register = on => {
     const { Box, Button, Text } = $.ui.resolve(e)
     const width = Math.max(20, e.props.bodyColumns - 16)
 
+    // 点滅はさせない。状態を周期的に書き換えると、そのたびにサイドパネルの枠まで作り直されて
+    // パネル全体が一瞬消えるため、Bashの実行中は赤の点灯にとどめる
     if (command !== null) {
       return (
-        <Box flexDirection="row" backgroundColor={isOn ? VOID : RED} paddingX={1} gap={1}>
+        <Box flexDirection="row" backgroundColor={RED} paddingX={1} gap={1}>
           <Box flexShrink={0}>
-            <Text color={isOn ? RED : VOID} bold wrap="truncate-end">
+            <Text color={VOID} bold wrap="truncate-end">
               ◢◤◢◤ 警告 EMERGENCY
             </Text>
           </Box>
-          <Text color={isOn ? RED : VOID} wrap="truncate-end">
+          <Text color={VOID} wrap="truncate-end">
             外部コマンド実行中 {clip(command, width)}
           </Text>
         </Box>
