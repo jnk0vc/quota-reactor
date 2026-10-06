@@ -42,6 +42,11 @@ The pane opens on its own when the window is wide enough. Run `/reactor` to open
 ## Requirements
 
 - A Claude Code build with function-hook plugins (early access). Tested on Claude Code 2.1.286.
+- Some builds ship function hooks turned off (2.1.281 does). If the pane never appears after installing, start Claude Code with the flag set:
+
+  ```
+  CLAUDE_CODE_ENABLE_FUNCTION_HOOKS=1 claude
+  ```
 - The desktop Code tab draws the full console with SVG. The terminal shows the same information as colored text.
 - Rate-limit timers need a Claude subscription. Without one, only the context timer appears.
 
@@ -63,6 +68,8 @@ Claude Codeのサイドパネルに、レトロSF風の計器盤を出すプラ�
 - 入力欄の上の警告帯は、Bashの実行中、ツールの失敗時、利用枠の使用率が90%を超えたときに赤く点灯します。
 
 インストールは上の「Install」のコマンドで行います。パネルは`/reactor`でいつでも開けます。
+
+このプラグインはClaude Codeの早期アクセス機能（関数フックのプラグイン）を使います。2.1.281など、この機能が既定でオフになっている版では、インストールしてもパネルが出ません。その場合は`CLAUDE_CODE_ENABLE_FUNCTION_HOOKS=1 claude`のように環境変数を付けて起動してください。
 
 ## License
 
